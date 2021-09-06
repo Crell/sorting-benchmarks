@@ -14,6 +14,10 @@ class SortingTest extends TestCase
 //        TopSortInternal::class,
     ];
 
+    protected array $noCycleSafetySubjects = [
+        TopSortInternal::class,
+    ];
+
     /**
      * @test
      * @dataProvider examples
@@ -43,6 +47,12 @@ class SortingTest extends TestCase
 
         foreach ($this->subjects as $subject) {
             foreach ($data() as $item) {
+                yield (['class' => $subject] + $item);
+            }
+        }
+
+        foreach ($this->noCycleSafetySubjects as $subject) {
+            foreach ($this->sortableExamples() as $item) {
                 yield (['class' => $subject] + $item);
             }
         }

@@ -62,9 +62,12 @@ class TopSortInternal implements \IteratorAggregate
             }
         }
 
-        uasort($this->items, function (TopologicalItem $left, TopologicalItem $right): int {
+        uasort($this->items, static function (TopologicalItem $left, TopologicalItem $right): int {
             if (in_array($right->id, $left->before, true)) {
                 return -1;
+            }
+            if (in_array($left->id, $right->before, true)) {
+                return 1;
             }
             return 0;
         });
