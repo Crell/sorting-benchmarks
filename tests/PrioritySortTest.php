@@ -10,6 +10,7 @@ class PrioritySortTest extends TestCase
 {
     protected array $subjects = [
         PrioritySortNaive::class,
+        PrioritySortGrouped::class,
     ];
 
     /**

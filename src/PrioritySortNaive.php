@@ -7,12 +7,9 @@ namespace Crell\TopSort;
 use Traversable;
 
 /**
- * This works, but with a caveat.
+ * A basic naive sorting based on priority.
  *
- * If two or more items are equally sortable (eg, both have no incoming arrows),
- * they will be returned in reverse order of how they were originally added. That
- * is technically correct, but unexpected.  Turning that around may have performance
- * concerns, but is handled by the array_reverse() call in sort().
+ * The priority is an integer on each item.  Just usort() and be done with it.
  */
 class PrioritySortNaive implements \IteratorAggregate
 {
