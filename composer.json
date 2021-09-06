@@ -1,5 +1,5 @@
 {
-    "name": "crell/*",
+    "name": "crell/topsort",
     "repositories": [
         {
             "type": "git",
@@ -16,12 +16,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Crell\\Foo\\": "src"
+            "Crell\\TopSort\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Crell\\Foo\\": "tests"
+            "Crell\\TopSort\\": "tests",
+            "Crell\\TopSort\\Benchmarks\\": "benchmarks"
         }
     }
 }
