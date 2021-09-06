@@ -6,6 +6,14 @@ namespace Crell\TopSort;
 
 use Traversable;
 
+/**
+ * This works, but with a caveat.
+ *
+ * If two or more items are equally sortable (eg, both have no incoming arrows),
+ * they will be returned in reverse order of how they were originally added. That
+ * is technically correct, but unexpected.  Turning that around may have performance
+ * concerns, but is handled by the array_reverse() call in sort().
+ */
 class TopSortBasic implements \IteratorAggregate
 {
     /** @var array<string, TopologicalItem>  */
@@ -70,6 +78,10 @@ class TopSortBasic implements \IteratorAggregate
             }
         }
 
+        // Because the items were pushed onto the usable list, we need
+        // to reverse it to get them back in the order they were added.
+        $usableItems = array_reverse($usableItems);
+
         // Keep removing usable items until there are none left.
         $sorted = [];
         while (count($usableItems)) {
@@ -80,7 +92,7 @@ class TopSortBasic implements \IteratorAggregate
             // Decrement the neighbor count of everything that item was before.
             foreach ($this->items[$id]->before as $neighbor) {
                 $indegrees[$neighbor]--;
-                if ($indegrees[$neighbor] == 0) {
+                if ($indegrees[$neighbor] === 0) {
                     $usableItems[] = $neighbor;
                 }
             }

@@ -11,13 +11,14 @@ class SortingTest extends TestCase
 {
     protected array $subjects = [
         TopSortBasic::class,
+//        TopSortInternal::class,
     ];
 
     /**
      * @test
      * @dataProvider examples
      */
-    public function TopSortBasic(string $class, array $items, array $expected = [], bool $cycleExpected = false): void
+    public function sortTests(string $class, array $items, array $expected = [], bool $cycleExpected = false): void
     {
         if ($cycleExpected) {
             $this->expectException(CycleFound::class);
@@ -57,6 +58,14 @@ class SortingTest extends TestCase
                 ['id' => 'C', 'before' => 'B'],
             ],
             'expected' => ['A', 'C', 'B'],
+        ];
+        yield [
+            'items' => [
+                ['id' => 'A', 'before' => 'C'],
+                ['id' => 'B', 'before' => 'C'],
+                ['id' => 'C'],
+            ],
+            'expected' => ['A', 'B', 'C'],
         ];
 
     }
