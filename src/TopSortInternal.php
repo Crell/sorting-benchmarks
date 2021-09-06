@@ -9,7 +9,10 @@ use Traversable;
 /**
  * This version does not work correctly.
  *
- * It works for acyclic examples, I think. However, because it lacks cycle detection
+ * This approach uses an unusual usort() approach, comparing based on the 'before'
+ * property.  So far it seems to be accurate for acyclic examples, I think.
+ *
+ * However, because it lacks cycle detection
  * the results for a cyclic graph will always be incorrect in some way. Some requirement
  * will not be met, and thus while a result is returned, it is not properly ordered
  * (as there is no proper order).
