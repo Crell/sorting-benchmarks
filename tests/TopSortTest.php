@@ -7,7 +7,7 @@ namespace Crell\TopSort;
 
 use PHPUnit\Framework\TestCase;
 
-class SortingTest extends TestCase
+class TopSortTest extends TestCase
 {
     protected array $subjects = [
         TopSortBasic::class,
@@ -77,7 +77,6 @@ class SortingTest extends TestCase
             ],
             'expected' => ['A', 'B', 'C'],
         ];
-
     }
 
     public function unsortableExamples(): iterable
