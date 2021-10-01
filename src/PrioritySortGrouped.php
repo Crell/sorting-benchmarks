@@ -33,7 +33,7 @@ class PrioritySortGrouped implements \IteratorAggregate
         return $id;
     }
 
-    public function getIterator(): iterable
+    public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->sorted());
     }
