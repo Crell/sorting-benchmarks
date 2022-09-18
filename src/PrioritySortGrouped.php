@@ -17,7 +17,7 @@ use Traversable;
  * The generator used to flatten everything out may be inefficient. I'm
  * not sure on that front.
  */
-class PrioritySortGrouped implements \IteratorAggregate
+class PrioritySortGrouped implements \IteratorAggregate, Sorter
 {
     /** @var array<int, <string, <PriorityItem>> */
     protected array $items;
@@ -44,9 +44,7 @@ class PrioritySortGrouped implements \IteratorAggregate
 
         $it = (function () {
             foreach ($this->items as $itemList) {
-                yield from array_map(static function (PriorityItem $item) {
-                    return $item->item;
-                }, $itemList);
+                yield from array_map(static fn (PriorityItem $item) => $item->item, $itemList);
             }
         })();
 

@@ -14,7 +14,7 @@ use Traversable;
  * is technically correct, but unexpected.  Turning that around may have performance
  * concerns, but is handled by the array_reverse() call in sort().
  */
-class TopSortBasic implements \IteratorAggregate
+class TopSortBasic implements Sorter
 {
     /** @var array<string, TopologicalItem>  */
     protected array $items;

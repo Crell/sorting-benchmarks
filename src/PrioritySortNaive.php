@@ -11,7 +11,7 @@ use Traversable;
  *
  * The priority is an integer on each item.  Just usort() and be done with it.
  */
-class PrioritySortNaive implements \IteratorAggregate
+class PrioritySortNaive implements Sorter
 {
     /** @var array<string, PriorityItem>  */
     protected array $items;

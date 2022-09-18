@@ -17,7 +17,7 @@ use Traversable;
  * will not be met, and thus while a result is returned, it is not properly ordered
  * (as there is no proper order).
  */
-class TopSortInternal implements \IteratorAggregate
+class TopSortInternal implements Sorter
 {
     /** @var array<string, TopologicalItem>  */
     protected array $items;

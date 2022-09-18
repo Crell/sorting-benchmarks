@@ -9,7 +9,7 @@ use Traversable;
 /**
  *
  */
-class CombinedSortPriority implements \IteratorAggregate
+class CombinedSortPriority implements Sorter
 {
     /** @var array<int, <string, <CombinedItem>> */
     protected array $items;

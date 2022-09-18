@@ -14,7 +14,7 @@ use Traversable;
  * is technically correct, but unexpected.  Turning that around may have performance
  * concerns, but is handled by the array_reverse() call in sort().
  */
-class CombinedSortTop implements \IteratorAggregate
+class CombinedSortTop implements Sorter
 {
     /** @var array<string, TopologicalItem>  */
     protected array $items = [];
@@ -122,25 +122,6 @@ class CombinedSortTop implements \IteratorAggregate
 
     protected function prioritizePendingItems(): void
     {
-/*
-        /** @var CombinedItem $item /
-        foreach ($this->toPrioritize as $item) {
-            /** @var CombinedItem $other /
-            foreach ([...$this->items, ...$this->toPrioritize] as $other) {
-                if ($item === $other) {
-                    continue;
-                }
-                if ($item->priority > $other->priority) {
-                    $item->after[] = $other->id;
-                }
-                if ($item->priority < $other->priority) {
-                    $item->before[] = $other->id;
-                }
-//                $item->after = array_unique($item->after);
-//                $item->before = array_unique($item->before);
-            }
-        }
-*/
         foreach ($this->toPrioritize as $priority => $items) {
             /** @var CombinedItem $item */
             foreach ($items as $item) {
