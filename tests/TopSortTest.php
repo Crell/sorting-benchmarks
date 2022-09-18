@@ -11,7 +11,6 @@ class TopSortTest extends TestCase
 {
     protected array $subjects = [
         TopSortBasic::class,
-//        TopSortInternal::class,
     ];
 
     protected array $noCycleSafetySubjects = [
@@ -76,6 +75,29 @@ class TopSortTest extends TestCase
                 ['id' => 'C'],
             ],
             'expected' => ['A', 'B', 'C'],
+        ];
+
+        // The following two are identical, but reverse specified.
+        // @todo These two both fail for TopSortInternal, but I don't know why.
+        yield [
+            'items' => [
+                ['id' => 'A'],
+                ['id' => 'B'],
+                ['id' => 'C', 'before' => 'A'],
+                ['id' => 'D', 'before' => 'C'],
+                ['id' => 'E', 'before' => ['B', 'D']],
+            ],
+            'expected' => ['E', 'D', 'C', 'A', 'B'],
+        ];
+        yield [
+            'items' => [
+                ['id' => 'A', 'after' => 'C'],
+                ['id' => 'B', 'after' => 'E'],
+                ['id' => 'C', 'after' => 'D'],
+                ['id' => 'D', 'after' => 'E'],
+                ['id' => 'E'],
+            ],
+            'expected' => ['E', 'D', 'C', 'A', 'B'],
         ];
     }
 
