@@ -105,7 +105,6 @@ class TopSortBasic implements \IteratorAggregate
         }
 
         throw new CycleFound();
-
     }
 
     /**
