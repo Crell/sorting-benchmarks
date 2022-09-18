@@ -24,11 +24,11 @@ abstract class SortCase
 {
     protected const Prefix = 'A';
 
-    protected const DataSize = 100_000;
+    protected const DataSize = 50000;
 
     protected const CommonPriority = 5;
 
-    protected const RandomPriorityMax = 100_000;
+    protected const RandomPriorityMax = self::DataSize;
 
     protected Sorter $sorter;
 
