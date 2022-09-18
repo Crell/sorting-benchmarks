@@ -72,7 +72,7 @@ class CombinedSortPriority implements Sorter
                 // If this item should come after something that doesn't exist,
                 // that's the same as no restrictions.
                 if ($this->items[$afterId]) {
-                    $this->items[$afterId]->before[] = $afterId;
+                    $this->items[$afterId]->before[] = $node->id;
                 }
             }
         }
