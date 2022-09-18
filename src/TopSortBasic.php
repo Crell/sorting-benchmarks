@@ -66,7 +66,9 @@ class TopSortBasic implements Sorter
         $indegrees = array_fill_keys(array_keys($this->items), 0);
         foreach ($this->items as $id => $node) {
             foreach ($node->before as $neighbor) {
-                $indegrees[$neighbor]++;
+                if (isset($this->items[$neighbor])) {
+                    $indegrees[$neighbor]++;
+                }
             }
         }
 
@@ -91,9 +93,11 @@ class TopSortBasic implements Sorter
 
             // Decrement the neighbor count of everything that item was before.
             foreach ($this->items[$id]->before as $neighbor) {
-                $indegrees[$neighbor]--;
-                if ($indegrees[$neighbor] === 0) {
-                    $usableItems[] = $neighbor;
+                if (isset($indegrees[$neighbor])) {
+                    $indegrees[$neighbor]--;
+                    if ($indegrees[$neighbor] === 0) {
+                        $usableItems[] = $neighbor;
+                    }
                 }
             }
         }

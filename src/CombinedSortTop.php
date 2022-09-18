@@ -80,8 +80,9 @@ class CombinedSortTop implements Sorter
         $indegrees = array_fill_keys(array_keys($this->items), 0);
         foreach ($this->items as $id => $node) {
             foreach ($node->before as $neighbor) {
-                //$indegrees[$neighbor] ??= 0;
-                $indegrees[$neighbor]++;
+                if (isset($this->items[$neighbor])) {
+                    $indegrees[$neighbor]++;
+                }
             }
         }
 
