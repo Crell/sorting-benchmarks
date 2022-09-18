@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Crell\TopSort\Benchmarks;
 
 use Crell\TopSort\PrioritySortGrouped;
-use Crell\TopSort\PrioritySortNaive;
 use PhpBench\Benchmark\Metadata\Annotations\AfterMethods;
 use PhpBench\Benchmark\Metadata\Annotations\BeforeMethods;
 use PhpBench\Benchmark\Metadata\Annotations\Iterations;

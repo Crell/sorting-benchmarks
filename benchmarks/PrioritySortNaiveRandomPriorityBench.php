@@ -30,7 +30,7 @@ class PrioritySortNaiveRandomPriorityBench extends SortCase
             $this->sorter->add(
                 item: self::Prefix . $i,
                 id: self::Prefix . $i,
-                priority: random_int(0, self::RandomPriorityMax),
+                priority: \random_int(0, self::RandomPriorityMax),
             );
         }
     }
