@@ -41,6 +41,9 @@ abstract class SortCase
      */
     public function benchSort(): void
     {
-        $result = $this->sorter->sorted();
+        // Since the implementations have caching, we need to
+        // clone the sorter before sorting so that it's freshly
+        // not-sorted next time.
+        $result = (clone($this->sorter))->sorted();
     }
 }
