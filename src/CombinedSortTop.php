@@ -7,6 +7,8 @@ namespace Crell\TopSort;
 use Traversable;
 
 /**
+ * Fold prioritized items to a topological graph before sorting topologically.
+ *
  * This works, but with a caveat.
  *
  * If two or more items are equally sortable (eg, both have no incoming arrows),

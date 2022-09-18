@@ -7,7 +7,7 @@ namespace Crell\TopSort;
 use Traversable;
 
 /**
- *
+ * Fold topologically specified items to a priority, then sort by priority.
  */
 class CombinedSortPriority implements Sorter
 {
@@ -101,14 +101,6 @@ class CombinedSortPriority implements Sorter
             $this->items[$item->priority][$item->id] = $item;
         }
 
-        /*
-        while (count($this->toPrioritize)) {
-            $item = array_pop($this->toPrioritize);
-
-        }
-        */
-
-        /** @var CombinedItem $item */
         foreach ($this->toPrioritize as $item) {
             $stuffThatComesAfter = [];
             $stuffThatComesBefore = [];
