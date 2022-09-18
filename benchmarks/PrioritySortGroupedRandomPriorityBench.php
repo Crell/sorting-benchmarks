@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Crell\TopSort\Benchmarks;
 
+use Crell\TopSort\PrioritySortGrouped;
 use Crell\TopSort\PrioritySortNaive;
 use PhpBench\Benchmark\Metadata\Annotations\AfterMethods;
 use PhpBench\Benchmark\Metadata\Annotations\BeforeMethods;
@@ -20,18 +21,19 @@ use PhpBench\Benchmark\Metadata\Annotations\Warmup;
  * @AfterMethods({"tearDown"})
  * @OutputTimeUnit("milliseconds", precision=3)
  */
-class PrioritySortNaiveUniqueReverseSortedBench extends SortCase
+class PrioritySortGroupedRandomPriorityBench extends SortCase
 {
     public function setUp(): void
     {
-        $this->sorter = new PrioritySortNaive();
+        $this->sorter = new PrioritySortGrouped();
 
-        for ($i = self::DataSize; $i > 0; --$i) {
+        for ($i = 0; $i < self::DataSize; ++$i) {
             $this->sorter->add(
                 item: self::Prefix . $i,
                 id: self::Prefix . $i,
-                priority: $i,
+                priority: random_int(0, self::RandomPriorityMax)
             );
         }
     }
+
 }

@@ -27,7 +27,11 @@ class PrioritySortNaiveUniquePreSortedBench extends SortCase
         $this->sorter = new PrioritySortNaive();
 
         for ($i = 0; $i < self::DataSize; ++$i) {
-            $this->sorter->add(item: self::Prefix . $i, id: self::Prefix . $i, priority: $i);
+            $this->sorter->add(
+                item: self::Prefix . $i,
+                id: self::Prefix . $i,
+                priority: $i,
+            );
         }
     }
 

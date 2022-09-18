@@ -28,6 +28,8 @@ abstract class SortCase
 
     protected const CommonPriority = 5;
 
+    protected const RandomPriorityMax = 100_000;
+
     protected Sorter $sorter;
 
     public function tearDown(): void {}

@@ -27,7 +27,11 @@ class PrioritySortNaiveRandomPriorityBench extends SortCase
         $this->sorter = new PrioritySortNaive();
 
         for ($i = 0; $i < self::DataSize; ++$i) {
-            $this->sorter->add(item: self::Prefix . $i, id: self::Prefix . $i, priority: random_int(0, 10));
+            $this->sorter->add(
+                item: self::Prefix . $i,
+                id: self::Prefix . $i,
+                priority: random_int(0, self::RandomPriorityMax),
+            );
         }
     }
 
