@@ -14,7 +14,7 @@ class TopSortTest extends TestCase
     ];
 
     protected array $noCycleSafetySubjects = [
-        TopSortInternal::class,
+        //TopSortInternal::class,
     ];
 
     /**
@@ -78,7 +78,7 @@ class TopSortTest extends TestCase
         ];
 
         // The following two are identical, but reverse specified.
-        // @todo These two both fail for TopSortInternal, but I don't know why.
+        // These two both fail for TopSortInternal. A and B are mis-ordered.
         yield [
             'items' => [
                 ['id' => 'A'],

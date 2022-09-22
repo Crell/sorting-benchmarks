@@ -10,7 +10,10 @@ use Traversable;
  * This version does not work correctly.
  *
  * This approach uses an unusual usort() approach, comparing based on the 'before'
- * property.  So far it seems to be accurate for acyclic examples, I think.
+ * property.  Unfortunately, it breaks down in some cases and does not properly sort,
+ * seemingly because it does not compare every pair of items.
+ *
+ * See the TopSortTest class for examples of test cases that fail with this approach.
  *
  * However, because it lacks cycle detection
  * the results for a cyclic graph will always be incorrect in some way. Some requirement
