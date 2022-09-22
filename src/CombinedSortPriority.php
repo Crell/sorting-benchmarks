@@ -66,16 +66,7 @@ class CombinedSortPriority implements Sorter
 
     protected function sort(): void
     {
-        // First, convert all records to use `before`, not `after`, for consistency.
-        foreach ($this->items as $node) {
-            foreach ($node->after ?? [] as $afterId) {
-                // If this item should come after something that doesn't exist,
-                // that's the same as no restrictions.
-                if ($this->items[$afterId]) {
-                    $this->items[$afterId]->before[] = $node->id;
-                }
-            }
-        }
+        $this->normalizeDirection();
 
         // Convert any before/after items to priorities.
         $this->prioritizePendingItems();
@@ -145,5 +136,21 @@ class CombinedSortPriority implements Sorter
         }
 
         return $candidateId;
+    }
+
+    /**
+     * Convert all records to use `before`, not `after`, for consistency.
+     */
+    protected function normalizeDirection(): void
+    {
+        foreach ($this->items as $node) {
+            foreach ($node->after ?? [] as $afterId) {
+                // If this item should come after something that doesn't exist,
+                // that's the same as no restrictions.
+                if ($this->items[$afterId]) {
+                    $this->items[$afterId]->before[] = $node->id;
+                }
+            }
+        }
     }
 }

@@ -51,16 +51,7 @@ class TopSortBasic implements Sorter
 
     protected function sort(): array
     {
-        // First, convert all records to use `before`, not `after`, for consistency.
-        foreach ($this->items as $node) {
-            foreach ($node->after ?? [] as $afterId) {
-                // If this item should come after something that doesn't exist,
-                // that's the same as no restrictions.
-                if ($this->items[$afterId]) {
-                    $this->items[$afterId]->before[] = $node->id;
-                }
-            }
-        }
+        $this->normalizeDirection();
 
         // Compute the initial indegrees for all items.
         $indegrees = array_fill_keys(array_keys($this->items), 0);
@@ -130,5 +121,21 @@ class TopSortBasic implements Sorter
         }
 
         return $candidateId;
+    }
+
+    /**
+     * Convert all records to use `before`, not `after`, for consistency.
+     */
+    protected function normalizeDirection(): void
+    {
+        foreach ($this->items as $node) {
+            foreach ($node->after ?? [] as $afterId) {
+                // If this item should come after something that doesn't exist,
+                // that's the same as no restrictions.
+                if ($this->items[$afterId]) {
+                    $this->items[$afterId]->before[] = $node->id;
+                }
+            }
+        }
     }
 }
