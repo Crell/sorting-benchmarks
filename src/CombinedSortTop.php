@@ -22,7 +22,7 @@ class CombinedSortTop implements Sorter
     protected array $items = [];
 
     /** @var CombinedItem[] */
-    protected array $toPrioritize = [];
+    protected array $toTopologize = [];
 
     protected ?array $sorted = null;
 
@@ -41,7 +41,7 @@ class CombinedSortTop implements Sorter
 
         if (!is_null($priority)) {
             $record = new CombinedItem(id: $id, item: $item, before: $before, after: $after, priority: $priority);
-            $this->toPrioritize[$priority][$id] = $record;
+            $this->toTopologize[$priority][$id] = $record;
             $this->sorted = null;
             return $id;
         }
@@ -63,7 +63,7 @@ class CombinedSortTop implements Sorter
 
     protected function sort(): array
     {
-        $this->prioritizePendingItems();
+        $this->topologizePendingItems();
         $this->normalizeDirection();
 
         // Compute the initial indegrees for all items.
@@ -113,15 +113,15 @@ class CombinedSortTop implements Sorter
         throw new CycleFound();
     }
 
-    protected function prioritizePendingItems(): void
+    protected function topologizePendingItems(): void
     {
-        foreach ($this->toPrioritize as $priority => $items) {
+        foreach ($this->toTopologize as $priority => $items) {
             /** @var CombinedItem $item */
             foreach ($items as $item) {
                 /**
                  * @var int $otherPriority
                  * @var array $otherItems */
-                foreach ($this->toPrioritize as $otherPriority => $otherItems) {
+                foreach ($this->toTopologize as $otherPriority => $otherItems) {
                     // For every other pending item, if this item's priority is
                     // greater than it, that means it must come before it. Mark
                     // the item as such.
@@ -135,7 +135,7 @@ class CombinedSortTop implements Sorter
         }
 
         // We don't need to reprioritize these again.
-        $this->toPrioritize = [];
+        $this->toTopologize = [];
     }
 
     /**
