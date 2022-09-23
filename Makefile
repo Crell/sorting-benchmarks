@@ -49,3 +49,7 @@ profile: build
 blackfire:
 > $(compose_command) blackfire run php profile.php
 .PHONY: blackfire
+
+bench:
+> $(compose_command) vendor/bin/phpbench --report=aggregate
+.PHONY: bench
