@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Crell\TopSort\Benchmarks;
 
-use Crell\TopSort\PrioritySortGrouped;
+use Crell\TopSort\CombinedSortPriority;
 use PhpBench\Benchmark\Metadata\Annotations\AfterMethods;
 use PhpBench\Benchmark\Metadata\Annotations\BeforeMethods;
 use PhpBench\Benchmark\Metadata\Annotations\Iterations;
@@ -20,11 +20,11 @@ use PhpBench\Benchmark\Metadata\Annotations\Warmup;
  * @AfterMethods({"tearDown"})
  * @OutputTimeUnit("milliseconds", precision=3)
  */
-class PrioritySortGroupedRandomPriorityBench extends SortCase
+class CombinedSortPriorityAllPriorityDataBench extends SortCase
 {
     public function setUp(): void
     {
-        $this->sorter = new PrioritySortGrouped();
+        $this->sorter = new CombinedSortPriority();
 
         for ($i = 0; $i < self::DataSize; ++$i) {
             $this->sorter->add(
@@ -34,5 +34,4 @@ class PrioritySortGroupedRandomPriorityBench extends SortCase
             );
         }
     }
-
 }
