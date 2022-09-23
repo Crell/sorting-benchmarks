@@ -63,8 +63,8 @@ class CombinedSortTop implements Sorter
 
     protected function sort(): array
     {
-        $this->topologizePendingItems();
         $this->normalizeDirection();
+        $this->topologizePendingItems();
 
         // Compute the initial indegrees for all items.
         $indegrees = array_fill_keys(array_keys($this->items), 0);
@@ -115,12 +115,38 @@ class CombinedSortTop implements Sorter
 
     protected function topologizePendingItems(): void
     {
-        foreach ($this->toTopologize as $priority => $items) {
+        // First, put the priorities in order, low numbers first.
+        ksort($this->toTopologize);
+
+        while (count($this->toTopologize)) {
+            // Get the highest priority set.  That's the last item in the
+            // list, which is fastest to access.
+            $items = array_pop($this->toTopologize);
+
+            // We don't actually care what the next priority is, but need it
+            // as a lookup value to get the items in that priority.
+            $otherPriority = array_key_last($this->toTopologize);
+
             /** @var CombinedItem $item */
             foreach ($items as $item) {
-                /**
-                 * @var int $otherPriority
-                 * @var array $otherItems */
+                // If $otherPriority is null, it means this is the last priority set
+                // so there is nothing else it comes before.
+                if ($otherPriority) {
+                    $item->before = array_map(static fn(CombinedItem $i) => $i->id, $this->toTopologize[$otherPriority]);
+                }
+                $this->items[$item->id] = $item;
+            }
+        }
+
+    }
+
+    /**
+     * This version is horribly slow, with a O(n^2) at least.
+     */
+    protected function topologizePendingItemsSlowly(): void
+    {
+        foreach ($this->toTopologize as $priority => $items) {
+            foreach ($items as $item) {
                 foreach ($this->toTopologize as $otherPriority => $otherItems) {
                     // For every other pending item, if this item's priority is
                     // greater than it, that means it must come before it. Mark
