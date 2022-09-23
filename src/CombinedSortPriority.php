@@ -33,7 +33,9 @@ class CombinedSortPriority implements Sorter
             if (is_string($after)) {
                 $after = [$after];
             }
-            $this->toPrioritize[$id] = new CombinedItem(id: $id, item: $item, before: $before, after: $after);
+            $record = new CombinedItem(id: $id, item: $item, before: $before, after: $after);
+            $this->toPrioritize[$id] = $record;
+            $this->itemIndex[$id] = $record;
             return $id;
         }
 
@@ -73,7 +75,6 @@ class CombinedSortPriority implements Sorter
             krsort($this->items);
             $this->sorted = true;
         }
-
     }
 
     protected function prioritizePendingItems(): void
@@ -99,6 +100,7 @@ class CombinedSortPriority implements Sorter
             // needs to have a higher priority than it.
             $priority = max($otherPriorities) + 1;
 
+            $item->priority = $priority;
             $this->items[$priority][] = $item;
         }
 

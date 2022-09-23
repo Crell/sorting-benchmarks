@@ -87,5 +87,14 @@ class CombinedPriorityTest extends TestCase
             ],
             'expected' => ['A', 'B', 'C'],
         ];
+        yield [
+            'items' => [
+                ['id' => 'A'],
+                ['id' => 'B', 'before' => 'A'],
+                ['id' => 'C', 'before' => 'B'],
+                ['id' => 'D', 'before' => 'B'],
+            ],
+            'expected' => ['C', 'D', 'B', 'A'],
+        ];
     }
 }
