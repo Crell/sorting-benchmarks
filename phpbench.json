@@ -5,10 +5,9 @@
     "runner.php_disable_ini": true,
     "runner.file_pattern": "*Bench.php",
     "report.generators": {
-        "crell": {
-            "generator": "expression",
-            "cols": [ "benchmark", "tag", "subject", "mean" ],
-            "break": ["benchmark"]
+        "results": {
+            "extends": "aggregate",
+            "cols": [ "benchmark", "mem_peak", "mean", "rstdev" ]
         }
     }
 }
