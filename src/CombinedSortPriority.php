@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Crell\TopSort;
 
-use Traversable;
-
 /**
  * Fold topologically specified items to a priority, then sort by priority.
  */
@@ -93,22 +91,13 @@ class CombinedSortPriority implements Sorter
         }
 
         foreach ($this->toPrioritize as $item) {
-            $stuffThatComesAfter = [];
-            $stuffThatComesBefore = [];
-            foreach($item->before as $before) {
-                $stuffThatComesAfter[] = $this->itemIndex[$before]->priority;
-            }
-            foreach($item->after as $after) {
-                $stuffThatComesBefore[] = $this->itemIndex[$after]->priority;
-            }
+            // Get the priority of all of the items this one must come before.
+            $otherPriorities = array_map(fn(string $before): int => $this->itemIndex[$before]->priority, $item->before);
 
-            $high = $stuffThatComesAfter ? min($stuffThatComesAfter) : 0;
-            $low = $stuffThatComesBefore ? max($stuffThatComesBefore) : 0;
-            $priority = $low + 1;
-            if ($priority >= $high) {
-                // Not necessarily a cycle, but it's an error case at least.
-                throw new CycleFound();
-            }
+            // This seems backwards, but that's because we want higher numbers
+            // to come first.  So something that comes "before" another item
+            // needs to have a higher priority than it.
+            $priority = max($otherPriorities) + 1;
 
             $this->items[$priority][] = $item;
         }

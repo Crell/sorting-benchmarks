@@ -73,32 +73,19 @@ class CombinedPriorityTest extends TestCase
         ];
         yield [
             'items' => [
+                ['id' => 'C', 'priority' => 1],
                 ['id' => 'A', 'before' => 'B'],
                 ['id' => 'B', 'priority' => 3],
-                ['id' => 'C', 'priority' => 1],
-            ],
-            'expected' => ['B', 'C', 'A'],
-        ];
-        /* Fails because it can't prioritize against unprioritized items yet.
-        yield [
-            'items' => [
-                ['id' => 'A', 'before' => 'C'],
-                ['id' => 'B', 'before' => 'C'],
-                ['id' => 'C'],
             ],
             'expected' => ['A', 'B', 'C'],
         ];
-        */
-        /*
         yield [
             'items' => [
-                ['id' => 'A', 'before' => 'B'],
-                ['id' => 'B', 'priority' => 3],
-                ['id' => 'C', 'priority' => 1],
+                ['id' => 'A', 'before' => 'C'],
+                ['id' => 'C'],
+                ['id' => 'B', 'before' => 'C'],
             ],
-            'expected' => ['B', 'C', 'A'],
+            'expected' => ['A', 'B', 'C'],
         ];
-        */
     }
-
 }
