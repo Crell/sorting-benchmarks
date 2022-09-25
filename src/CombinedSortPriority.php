@@ -134,12 +134,12 @@ class CombinedSortPriority implements Sorter
      */
     protected function normalizeDirection(): void
     {
-        foreach ($this->items as $node) {
+        foreach ($this->toPrioritize as $node) {
             foreach ($node->after ?? [] as $afterId) {
                 // If this item should come after something that doesn't exist,
                 // that's the same as no restrictions.
-                if ($this->items[$afterId]) {
-                    $this->items[$afterId]->before[] = $node->id;
+                if ($this->itemIndex[$afterId]) {
+                    $this->itemIndex[$afterId]->before[] = $node->id;
                 }
             }
         }
