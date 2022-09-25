@@ -4,6 +4,10 @@
     "runner.bootstrap": "vendor/autoload.php",
     "runner.php_disable_ini": true,
     "runner.file_pattern": "*Bench.php",
+    "runner.php_config": {
+        "memory_limit": "1G",
+        "xdebug.mode": "none"
+    },
     "report.generators": {
         "results": {
             "extends": "aggregate",
