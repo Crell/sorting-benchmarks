@@ -51,5 +51,5 @@ blackfire:
 .PHONY: blackfire
 
 bench:
-> $(compose_command) vendor/bin/phpbench --report=aggregate
+> $(compose_command) vendor/bin/phpbench run --report=results
 .PHONY: bench
